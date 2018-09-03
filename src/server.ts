@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import koa from 'koa';
 import koaRouter from 'koa-router';
 import dotenv from 'dotenv';
