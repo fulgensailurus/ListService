@@ -1,7 +1,10 @@
 import koa from 'koa';
 import koaRouter from 'koa-router';
+import dotenv from 'dotenv';
 
-const HTTP_PORT = 3000;
+dotenv.config();
+
+const HTTP_PORT = process.env.HTTP_PORT || 3000;
 const app = new koa();
 const router = new koaRouter();
 
