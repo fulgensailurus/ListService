@@ -1,7 +1,17 @@
-console.log('Shopping list');
+import koa from 'koa';
+import koaRouter from 'koa-router';
 
-async function foobar() {
-  console.log(10);
-}
+const HTTP_PORT = 3000;
+const app = new koa();
+const router = new koaRouter();
 
-(async () => await foobar())();
+router.get('/list', async (ctx) => {
+  ctx.body = [
+    'milk',
+    'bread',
+    'eggs',
+  ];
+});
+
+app.use(router.routes());
+app.listen(HTTP_PORT);
