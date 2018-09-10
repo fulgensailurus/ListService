@@ -10,11 +10,11 @@ import { createConnection, Connection } from 'typeorm';
 const HTTP_PORT = process.env.HTTP_PORT || 3000;
 const app = new koa();
 
-app.use(async () => {
-  createConnection(config.typeorm.connection).then(async (connection: Connection) => {
-    console.log(connection);
-  });
-});
+// app.use(async () => {
+//   createConnection(config.typeorm.connection).then(async (connection: Connection) => {
+//     console.log(connection);
+//   });
+// });
 
 const router = new koaRouter();
 
@@ -27,4 +27,6 @@ router.get('/list', async (ctx) => {
 });
 
 app.use(router.routes());
-app.listen(HTTP_PORT);
+app.listen(HTTP_PORT, () => {
+  console.log(`HTTP server listening on port ${HTTP_PORT}`);
+});
