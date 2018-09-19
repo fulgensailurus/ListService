@@ -19,6 +19,8 @@ export class CreateItems1536599576022 implements MigrationInterface {
           name: 'name',
           type: 'varchar',
           length: '128',
+          isNullable: false,
+          isUnique: true,
         },
       ],
     }));

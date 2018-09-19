@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
 
-@Entity()
-export class Item {
+@Entity('items')
+export class Item extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('varchar', { length: 128 })
+  @Column('varchar', { length: 128, unique: true, nullable: false })
   name: string;
 }
