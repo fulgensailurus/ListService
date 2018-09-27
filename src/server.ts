@@ -1,23 +1,22 @@
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
-import koa from 'koa';
-import koaRouter from 'koa-router';
 import dotenv from 'dotenv';
 import items from './routes/items';
-import koaBodyparser from 'koa-bodyparser';
+import fastify from 'fastify';
 dotenv.config();
 
-const HTTP_PORT = process.env.HTTP_PORT || 3000;
-const app = new koa();
+const HTTP_PORT = parseInt(process.env.HTTP_PORT || '3000', 10);
+const app = fastify({
+  logger: true,
+});
 
-const router = new koaRouter();
-
-app.use(koaBodyparser());
-router.use('/items', items.routes(), items.allowedMethods());
-app.use(router.routes());
+app.register(items, { prefix: '/items' });
 
 createConnection().then(async (connection) => {
-  app.listen(HTTP_PORT, () => {
+  try {
+    await app.listen(HTTP_PORT);
     console.log(`HTTP server listening on port ${HTTP_PORT}`);
-  });
+  } catch (err) {
+    console.error(err);
+  }
 });

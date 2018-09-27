@@ -1,53 +1,72 @@
-import koaRouter from 'koa-router';
 import { Item } from '../entities/Item';
-const router = new koaRouter();
+import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import { IncomingMessage, ServerResponse } from 'http';
 
-router.get('/', async (ctx) => {
+const getItems = async (_: any, reply: FastifyReply<ServerResponse>) => {
   const items = await Item.find();
+  reply.send(items);
+};
 
-  ctx.body = items;
-});
-
-router.post('/', async (ctx) => {
-  const item = Item.create(ctx.request.body);
+const createItem = async (request: FastifyRequest<IncomingMessage>,
+                          reply: FastifyReply<ServerResponse>) => {
+  const item = Item.create(request.body);
   if (item.name === undefined) {
-    ctx.status = 400;
+    reply
+      .code(400)
+      .send();
     return;
   }
 
   try {
     await item.save();
-    ctx.status = 201;
-    ctx.body = item;
+    reply
+      .code(201)
+      .send(item);
   } catch (err) {
-    ctx.status = 400;
-    ctx.body = { error: 'boohoo' };
+    reply
+      .code(400)
+      .send({ error: 'boohoo!' });
   }
-});
+};
 
-router.put('/:id', async (ctx) => {
-  const item = await Item.findOne(ctx.params.id);
+const editItem = async (request: FastifyRequest<IncomingMessage>,
+                        reply: FastifyReply<ServerResponse>) => {
+  const item = await Item.findOne(request.params.id);
   if (!item) {
-    ctx.status = 404;
+    reply
+      .code(404)
+      .send();
     return;
   }
 
-  Item.merge(item, ctx.request.body);
+  Item.merge(item, request.body);
   await item.save();
-  ctx.body = item;
-  ctx.status = 200;
-});
+  reply
+    .code(200)
+    .send(item);
+};
 
-router.delete('/:id', async (ctx) => {
-  const item = await Item.findOne(ctx.params.id);
+const deleteItem = async (request: FastifyRequest<IncomingMessage>,
+                          reply: FastifyReply<ServerResponse>) => {
+  const item = await Item.findOne(request.params.id);
   if (!item) {
-    ctx.status = 404;
+    reply
+      .code(404)
+      .send();
     return;
   }
 
   await Item.delete(item);
-  ctx.body = item;
-  ctx.status = 200;
-});
+  reply
+    .code(200)
+    .send(item);
+};
 
-export = router;
+export = function (fastify: FastifyInstance, _: any, next: any) {
+  fastify.get('/', getItems);
+  fastify.post('/', createItem);
+  fastify.put('/:id', editItem);
+  fastify.delete('/:id', deleteItem);
+
+  next();
+};
