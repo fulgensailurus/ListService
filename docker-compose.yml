@@ -1,0 +1,19 @@
+version: '2'
+networks:
+  default:
+     external:
+        name: shared_network
+
+services:
+  api:
+    container_name: shoppingList
+    build:
+      context: .
+    command: sh -c 'npm run watch'
+    environment:
+      - HTTP_PORT=8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/data/src
+      - /data/src/node_modules

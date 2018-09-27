@@ -18,7 +18,7 @@ app.register(purchases, { prefix: '/purchases' });
 
 createConnection().then(async (connection) => {
   try {
-    await app.listen(HTTP_PORT);
+    await app.listen(HTTP_PORT, '0.0.0.0');
     console.log(`HTTP server listening on port ${HTTP_PORT}`);
   } catch (err) {
     console.error(err);
