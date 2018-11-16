@@ -1,6 +1,7 @@
 import { Item } from '../entities/Item';
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { IncomingMessage, ServerResponse } from 'http';
+import httpStatus from 'http-status';
 
 const getItems = async (_: any, reply: FastifyReply<ServerResponse>) => {
   const items = await Item.find();
@@ -11,20 +12,19 @@ const createItem = async (request: FastifyRequest<IncomingMessage>,
                           reply: FastifyReply<ServerResponse>) => {
   const item = Item.create(request.body);
   if (item.name === undefined) {
-    reply
-      .code(400)
+    return reply
+      .code(httpStatus.BAD_REQUEST)
       .send();
-    return;
   }
 
   try {
     await item.save();
     reply
-      .code(201)
+      .code(httpStatus.CREATED)
       .send(item);
   } catch (err) {
     reply
-      .code(400)
+      .code(httpStatus.BAD_REQUEST)
       .send({ error: 'boohoo!' });
   }
 };
@@ -33,16 +33,15 @@ const editItem = async (request: FastifyRequest<IncomingMessage>,
                         reply: FastifyReply<ServerResponse>) => {
   const item = await Item.findOne(request.params.id);
   if (!item) {
-    reply
-      .code(404)
+    return reply
+      .code(httpStatus.NOT_FOUND)
       .send();
-    return;
   }
 
   Item.merge(item, request.body);
   await item.save();
   reply
-    .code(200)
+    .code(httpStatus.OK)
     .send(item);
 };
 
@@ -50,15 +49,14 @@ const deleteItem = async (request: FastifyRequest<IncomingMessage>,
                           reply: FastifyReply<ServerResponse>) => {
   const item = await Item.findOne(request.params.id);
   if (!item) {
-    reply
-      .code(404)
+    return reply
+      .code(httpStatus.NOT_FOUND)
       .send();
-    return;
   }
 
   await Item.delete(item);
   reply
-    .code(200)
+    .code(httpStatus.OK)
     .send(item);
 };
 
