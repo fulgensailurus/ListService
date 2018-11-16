@@ -8,6 +8,15 @@ const getItems = async (_: any, reply: FastifyReply<ServerResponse>) => {
   reply.send(items);
 };
 
+const getItem = async (request: any, reply: FastifyReply<ServerResponse>) => {
+  const item = await Item.findOne(request.params.id);
+  if (!item) {
+    return reply.code(httpStatus.NOT_FOUND).send();
+  }
+
+  reply.send(item);
+};
+
 const createItem = async (request: FastifyRequest<IncomingMessage>,
                           reply: FastifyReply<ServerResponse>) => {
   const item = Item.create(request.body);
@@ -62,6 +71,7 @@ const deleteItem = async (request: FastifyRequest<IncomingMessage>,
 
 export = function (fastify: FastifyInstance, _: any, next: any) {
   fastify.get('/', getItems);
+  fastify.get('/:id', getItem);
   fastify.post('/', createItem);
   fastify.put('/:id', editItem);
   fastify.delete('/:id', deleteItem);
