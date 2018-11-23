@@ -67,3 +67,13 @@ npm run serve
 ```
 
 Now you can visit your browser at the address [http://localhost:3000](http://localhost:3000), and you're all set to go!
+
+## Contributing
+
+### Running tests
+
+To run the massive test suite, run the following command:
+
+```bash
+npm run test
+```
