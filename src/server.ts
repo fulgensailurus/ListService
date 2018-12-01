@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import dotenv from 'dotenv';
 import items from './routes/items';
+import lists from './routes/lists';
 import fastify from 'fastify';
 dotenv.config();
 
@@ -11,6 +12,7 @@ const app = fastify({
 });
 
 app.register(items, { prefix: '/items' });
+app.register(lists, { prefix: '/lists' });
 
 createConnection().then(async (connection) => {
   try {
