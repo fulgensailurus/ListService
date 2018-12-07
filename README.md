@@ -1,3 +1,5 @@
+![alt text](https://travis-ci.org/RoelandMatthijssens/shoppingList.svg?branch=master)
+
 # Shopping List
 
 This project contains the code to implement the logic of a shopping list.
@@ -38,7 +40,7 @@ To run migrations, it's very useful to install the typeorm cli globally:
 npm install -g typeorm
 ```
 
-Before you can run the migrations, you first need to initialize some basic environment variables. 
+Before you can run the migrations, you first need to initialize some basic environment variables.
 All of the environment variables are described in the file `.env.example` in the root of this project. You can copy this file to `.env` and make the appropriate changes:
 
 ```bash
