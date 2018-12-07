@@ -9,5 +9,5 @@ script:
   - docker build --pull --cache-from "$IMAGE_NAME" --tag "$IMAGE_NAME" .
 
 after_script:
-  - docker run --rm "$IMAGE_NAME" npm run test
+  - docker run --rm "$IMAGE_NAME" npm run test || travis_terminate 1
   - docker images
