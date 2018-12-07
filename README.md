@@ -77,3 +77,5 @@ To run the massive test suite, run the following command:
 ```bash
 npm run test
 ```
+
+To see CI progress: https://travis-ci.org/RoelandMatthijssens/shoppingList
