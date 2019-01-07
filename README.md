@@ -53,7 +53,13 @@ cp .env.example .env
 After setting the correct environment variables, you can run the following command to apply default migrations:
 
 ```bash
-typeorm migration:run
+npm run migrate
+```
+
+You can also run the following
+
+```bash
+npx ts-node ./node_modules/.bin/typeorm migration:run
 ```
 
 To run the server in development mode, it's useful to run the watch command.
