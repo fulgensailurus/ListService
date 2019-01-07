@@ -1,6 +1,4 @@
 import { Purchase } from '../entities/Purchase';
-import { Item } from '../entities/Item';
-import { List } from '../entities/List';
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { IncomingMessage, ServerResponse } from 'http';
 import httpStatus from 'http-status';
@@ -20,8 +18,7 @@ const getPurchase = async (request: any, reply: FastifyReply<ServerResponse>) =>
   reply.send(purchase);
 };
 
-const createPurchase = async (request: FastifyRequest<IncomingMessage>,
-                          reply: FastifyReply<ServerResponse>) => {
+const createPurchase = async (request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
   const purchase = Purchase.create(request.body);
 
   try {
@@ -36,8 +33,7 @@ const createPurchase = async (request: FastifyRequest<IncomingMessage>,
   }
 };
 
-const editPurchase = async (request: FastifyRequest<IncomingMessage>,
-                        reply: FastifyReply<ServerResponse>) => {
+const editPurchase = async (request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
   const purchase = await Purchase.findOne(request.params.id);
   if (!purchase) {
     return reply
@@ -52,8 +48,7 @@ const editPurchase = async (request: FastifyRequest<IncomingMessage>,
     .send(purchase);
 };
 
-const deletePurchase = async (request: FastifyRequest<IncomingMessage>,
-                          reply: FastifyReply<ServerResponse>) => {
+const deletePurchase = async (request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
   const purchase = await Purchase.findOne(request.params.id);
   if (!purchase) {
     return reply

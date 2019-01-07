@@ -17,8 +17,7 @@ const getItem = async (request: any, reply: FastifyReply<ServerResponse>) => {
   reply.send(item);
 };
 
-const createItem = async (request: FastifyRequest<IncomingMessage>,
-                          reply: FastifyReply<ServerResponse>) => {
+const createItem = async (request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
   const item = Item.create(request.body);
   if (item.name === undefined) {
     return reply
@@ -38,8 +37,7 @@ const createItem = async (request: FastifyRequest<IncomingMessage>,
   }
 };
 
-const editItem = async (request: FastifyRequest<IncomingMessage>,
-                        reply: FastifyReply<ServerResponse>) => {
+const editItem = async (request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
   const item = await Item.findOne(request.params.id);
   if (!item) {
     return reply
@@ -54,8 +52,7 @@ const editItem = async (request: FastifyRequest<IncomingMessage>,
     .send(item);
 };
 
-const deleteItem = async (request: FastifyRequest<IncomingMessage>,
-                          reply: FastifyReply<ServerResponse>) => {
+const deleteItem = async (request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) => {
   const item = await Item.findOne(request.params.id);
   if (!item) {
     return reply

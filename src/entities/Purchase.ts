@@ -1,6 +1,6 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, ManyToOne, JoinColumn } from 'typeorm';
-import { List } from './List'
-import { Item } from './Item'
+import { List } from './List';
+import { Item } from './Item';
 
 @Entity('purchases')
 export class Purchase extends BaseEntity {

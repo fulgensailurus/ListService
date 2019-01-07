@@ -30,24 +30,24 @@ export class CreatePurchase1543697217830 implements MigrationInterface {
     }));
 
     await queryRunner.createForeignKey(TABLE_NAME, new TableForeignKey({
-      columnNames: ["itemId"],
-      referencedColumnNames: ["id"],
-      referencedTableName: "items",
-      onDelete: "CASCADE"
+      columnNames: ['itemId'],
+      referencedColumnNames: ['id'],
+      referencedTableName: 'items',
+      onDelete: 'CASCADE',
     }));
 
     await queryRunner.createForeignKey(TABLE_NAME, new TableForeignKey({
-      columnNames: ["listId"],
-      referencedColumnNames: ["id"],
-      referencedTableName: "lists",
-      onDelete: "CASCADE"
+      columnNames: ['listId'],
+      referencedColumnNames: ['id'],
+      referencedTableName: 'lists',
+      onDelete: 'CASCADE',
     }));
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
     const table = await queryRunner.getTable(TABLE_NAME);
-    const listForeignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf("listId") !== -1);
-    const itemForeignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf("itemId") !== -1);
+    const listForeignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf('listId') !== -1);
+    const itemForeignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf('itemId') !== -1);
     await queryRunner.dropForeignKey(TABLE_NAME, listForeignKey);
     await queryRunner.dropForeignKey(TABLE_NAME, itemForeignKey);
     await queryRunner.dropTable(TABLE_NAME);
