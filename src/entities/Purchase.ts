@@ -15,8 +15,11 @@ export class Purchase extends BaseEntity {
   @JoinColumn({ name: 'listId' })
   list: List;
 
+  @Column('varchar', { nullable: true })
+  amount: string;
+
   @Column('int')
-  amount: number;
+  quantity: number;
 
   @Column({ nullable: true })
   itemId: string;

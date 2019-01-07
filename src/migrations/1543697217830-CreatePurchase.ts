@@ -15,8 +15,13 @@ export class CreatePurchase1543697217830 implements MigrationInterface {
           isPrimary: true,
           generationStrategy: 'uuid',
         }, {
-          name: 'amount',
+          name: 'quantity',
           type: 'int',
+        }, {
+          name: 'amount',
+          type: 'varchar',
+          length: '32',
+          isNullable: true,
         }, {
           name: 'itemId',
           type: 'varchar',
