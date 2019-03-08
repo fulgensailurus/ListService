@@ -14,6 +14,11 @@ export class CreateList1543694632645 implements MigrationInterface {
           length: '36',
           isPrimary: true,
           generationStrategy: 'uuid',
+        }, {
+          name: 'owner',
+          type: 'varchar',
+          length: '36',
+          isPrimary: false,
         },
       ],
     }));
