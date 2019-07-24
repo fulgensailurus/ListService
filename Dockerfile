@@ -24,3 +24,4 @@ RUN set -xe \
     && su-exec node npm install
 
 ENTRYPOINT [ "su-exec", "node" ]
+CMD ["npm", "run", "serve"]
